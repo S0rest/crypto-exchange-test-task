@@ -1,0 +1,57 @@
+buildscript {
+	ext {
+		lombokVersion = '1.18.28'
+		openApiVersion = '2.5.0'
+		jakartaValidationVersion = '3.0.2'
+		flywayVersion = '9.21.1'
+		postgresVersion = '42.7.3'
+	}
+}
+
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.2'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.exchange'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '20'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+
+	// retrofit
+	implementation 'com.squareup.retrofit2:retrofit:2.11.0'
+	implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
+
+	// lombok
+	compileOnly "org.projectlombok:lombok:${lombokVersion}"
+	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+	// Open api
+	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${openApiVersion}"
+
+	// Validation api
+	implementation "jakarta.validation:jakarta.validation-api:${jakartaValidationVersion}"
+
+	// DB
+	implementation "org.flywaydb:flyway-core:${flywayVersion}"
+	implementation "org.postgresql:postgresql:${postgresVersion}"
+	runtimeOnly 'org.postgresql:postgresql'
+
+	// Spring
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
